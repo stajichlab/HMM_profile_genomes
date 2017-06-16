@@ -13,5 +13,5 @@ if [ -f config.txt ]; then
  source config.txt
 fi
 
-perl scripts/gather_domaincounts.pl -o $TABLEFOLDER/domain_counts.csv -i $RESULTFOLDER -db $TARGETDB -c 1e-5  -d $DOMAINSEQ
+perl scripts/gather_domaincounts.pl -o $TABLEFOLDER/domain_counts.csv -i $RESULTFOLDER -db $TARGETDIR -c 1e-5  -d $DOMAINSEQ
 
