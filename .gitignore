@@ -1,0 +1,6 @@
+*.aa.fasta
+*.domtbl
+*.hmmsearch
+*~
+results/
+tables/
