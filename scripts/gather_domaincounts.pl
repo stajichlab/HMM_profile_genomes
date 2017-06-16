@@ -6,7 +6,8 @@ use warnings;
 use Getopt::Long;
 use Pod::Usage;
 use Bio::DB::Fasta;
- 
+use Bio::SeqIO;
+
 my $man = 0;
 my $help = 0;
 my ($indir,$domaindir) = qw(results domainseq);
