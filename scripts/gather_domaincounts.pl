@@ -16,10 +16,12 @@ my $sep = '__';
 my $cutoff = 1e-4;
 my $seqdb;
 my $speciesorder;
+my $verbose;
 
 GetOptions('help|?'    => \$help, man => \$man,
 	   'i|input:s' => \$indir,
            'o|out:s'     => \$out,
+	   'v|verbose!'  => \$verbose,
 	   'd|domain|domainout:s' => \$domaindir,
 	   'c|cutoff|evalue:s' => \$cutoff,
 	   'ext|extension:s' => \$ext,
@@ -42,7 +44,7 @@ for my $file ( readdir($ind) ) {
  next unless $file =~ /(\S+)\Q$ext\E$/;
  my $stem = $1;
  my ($domain_name,$species) = split(/\Q$sep\E/,$stem);
- warn("domain=$domain_name species=$species\n");
+ warn("domain=$domain_name species=$species\n") if $verbose;
  my $filepath = File::Spec->catfile($indir,$file);
  open(my $in => $filepath ) || die "cannot open $filepath: $!";
  while(<$in>) {  # parse domtbl file
@@ -89,7 +91,7 @@ for my $d ( sort keys %table ) {
  print $outfh join(",",$d, map { scalar @{$table{$d}->{$_} || []} } @species), "\n";
  if( $db ) {
    my $outseq = Bio::SeqIO->new(-format => 'fasta', -file => ">$domaindir/$d.fas");
-   while ( my ($sp,$domainobs) = each %{$table{$db}} ) { # process domain/species pair data
+   while ( my ($sp,$domainobs) = each %{$table{$d}} ) { # process domain/species pair data
 							 # which is a list of domain positions in the protein
      my %gene_count;
      for my $domain_pos ( @{$domainobs || []} ) { # there are observations of this domain
