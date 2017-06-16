@@ -20,7 +20,7 @@ do
  do
   targetname=$(basename $db .fasta)
  # could add GA_CUT for 
-  if [ ! -z $OUT/${stem}__$targetname.domtbl ]; then
+  if [ ! -f $OUT/${stem}__$targetname.domtbl ]; then
    hmmsearch -E $EVALUE --cpu $CPUS --domtblout $OUT/${stem}__$targetname.domtbl $hmmfile $db > $OUT/${stem}__$targetname.hmmsearch
   fi
  done
